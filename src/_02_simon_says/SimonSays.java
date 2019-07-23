@@ -6,7 +6,6 @@ package _02_simon_says;
  */
 
 import java.awt.Component;
-import java.awt.Frame;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
@@ -18,7 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.io.IOException;
 
 public class SimonSays extends KeyAdapter {
 
@@ -31,6 +29,9 @@ public class SimonSays extends KeyAdapter {
 	// Complete steps 1 - 7 before you test
 	// 1. Declare a JFrame variable
 	JFrame frame;
+	int value;
+	int errorsRemaining = 5;
+	String person;
 
 	public void run() {
 		// 2. Add the four images that match keyboard keys like this:
@@ -38,16 +39,16 @@ public class SimonSays extends KeyAdapter {
 		images.put(new Integer(KeyEvent.VK_UP), "down.jpg");
 		images.put(new Integer(KeyEvent.VK_UP), "left.jpg");
 		images.put(new Integer(KeyEvent.VK_UP), "right.jpg");
-		
 
 		// 3. Use a JOptionPane to tell the user the rules: "Press the matching
 		// key when
 		// 'Simon says' otherwise press a different key"
-		String person=JOptionPane.showInputDialog("Input the NamE oF a pERsOn yOu VaLUuue Example: Shrek");
-		JOptionPane.showMessageDialog(null, "Tracking "+person);
-		JOptionPane.showMessageDialog(null, "Extracting "+person);
+		person = JOptionPane.showInputDialog("Input the NamE oF a pERsOn yOu VaLUuue Example: Shrek");
+		JOptionPane.showMessageDialog(null, "Tracking " + person);
+		JOptionPane.showMessageDialog(null, "Extracting " + person);
 		JOptionPane.showMessageDialog(null, "Extraction successful");
-		JOptionPane.showMessageDialog(null, "If simon says simon says, you do what he says. If he doesn't say simon says, press a random button. Be sure to do it correctly, "+person+"'S lIFe dEpENdS oN It");
+		JOptionPane.showMessageDialog(null,
+				"If simon says simon says, you do what he says. If he doesn't say simon says, press any button, but be sure not to press the button he says. Be sure to do it correctly, " + person + "'S lIFe dEpENdS oN It");
 
 		// 4. Call the showImage method to show an image
 		showImage();
@@ -55,8 +56,14 @@ public class SimonSays extends KeyAdapter {
 
 	public void keyPressed(KeyEvent e) {
 		// 15. Make a points variable to track the score.
+		int releaseChance = 0;
 
 		// 16. If the keyCode matches the imageIndex and "Simon says"
+		if (e.getKeyCode() == imageIndex && simonSays==true) {
+			releaseChance++;
+			speak("Acceptable. Release chance increased by 1%");
+			// showImage();
+		}
 
 		// 17. Increase the value of score
 
@@ -64,7 +71,30 @@ public class SimonSays extends KeyAdapter {
 
 		// 19. If the keyCode doesn't match the imageIndex and "Simon didn't
 		// say..."
+		else if (e.getKeyCode() != imageIndex && simonSays == false) {
+			releaseChance++;
+			speak("Acceptable. Release chance increased by 1%");
+			// showImage();
 
+		} else {
+			releaseChance = releaseChance - 5;
+			speak("Error. Release chance decreased by 5%. You have " + errorsRemaining
+					+ " errors remaining before termination.");
+			errorsRemaining--;
+		}
+
+		if (errorsRemaining == 0) {
+			speak("Final release chance: " + releaseChance + "%");
+			if (releaseChance >= 100) {
+				speak("Locks disengaging. " + person + " has been released.");
+			} else {
+				speak("Roblox OOF sound plays in the distance. " + person + " has not been released.");
+			}
+			System.exit(0);
+			frame.dispose();
+
+		}
+		showImage();
 		// 20. Increase the value of score
 
 		// 21. Use the speak method to tell the user they were correct
@@ -84,32 +114,35 @@ public class SimonSays extends KeyAdapter {
 
 	private void showImage() {
 		// 5. Initialize your frame to a new JFrame()
-			JFrame frame= new JFrame();
+		frame = new JFrame();
 		// 6. Set the frame to visible
-			frame.setVisible(true);
+		frame.setVisible(true);
 		// 7. Uncomment the following line to add a random image to your frame
-		    frame.add(getNextRandomImage());
+		frame.add(getNextRandomImage());
 
 		// 8. Set the name of your frame
-		    frame.setName("The Trials of Obedience");
+		frame.setName("The Trials of Obedience");
 		// 9. Pack the frame
-		    frame.pack();
+		frame.pack();
 		// 10. Set the defaultCloseOperation of your from to
 		// JFrame.EXIT_ON_CLOSE
-		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// 11. Add a key listener to the frame
-		    frame.addKeyListener(this);
+		frame.addKeyListener(this);
 		// 12. Create a new instance of Random
-		    Random rand=new Random();
-		    int value=rand.nextInt(1);
+		Random rand = new Random();
+		value = rand.nextInt(1);
 		// 13. Use the Random and the speak method to either say
 		// "Simon says press this key" or "Press this key"
-		    if(value==1) {
-		    	JOptionPane.showMessageDialog(null, message);
-		    }
+		if (value == 1) {
+			JOptionPane.showMessageDialog(null, "Simon says press this key");
+			simonSays = true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Press this key");
+			simonSays = false;
+		}
 		// 14. Above, set the value of simonSays to true/false appropriately
-
 	}
 
 	private Component getNextRandomImage() {
