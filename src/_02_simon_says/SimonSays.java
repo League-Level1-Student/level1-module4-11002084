@@ -36,9 +36,9 @@ public class SimonSays extends KeyAdapter {
 	public void run() {
 		// 2. Add the four images that match keyboard keys like this:
 		images.put(new Integer(KeyEvent.VK_UP), "up.jpg");
-		images.put(new Integer(KeyEvent.VK_UP), "down.jpg");
-		images.put(new Integer(KeyEvent.VK_UP), "left.jpg");
-		images.put(new Integer(KeyEvent.VK_UP), "right.jpg");
+		images.put(new Integer(KeyEvent.VK_DOWN), "down.jpg");
+		images.put(new Integer(KeyEvent.VK_LEFT), "left.jpg");
+		images.put(new Integer(KeyEvent.VK_RIGHT), "right.jpg");
 
 		// 3. Use a JOptionPane to tell the user the rules: "Press the matching
 		// key when

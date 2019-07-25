@@ -136,7 +136,7 @@ public class Jeopardy implements ActionListener {
 		if(buttonPressed==firstButton) {
 
 			// Call the askQuestion() method
-			askQuestion("The meme that originally started as a joke but went way too far and may now result on in an invasion of a government facility that has been, for years, speculated to house aliens that've been captured by the government.", "What is Area 51 Meme", 200);
+			askQuestion("The meme that originally started as a joke but went way too far and may now result on in an invasion of a government facility that has been, for years, speculated to house aliens that've been captured by the government.", "What is Area 51 meme", 200);
 		}
 		// Complete the code in the askQuestion() method. When you play the game, the score should change.
 
@@ -188,7 +188,7 @@ public class Jeopardy implements ActionListener {
 		// Stop the theme music when they have entered their response. Hint: use the sound variable 
 		sound.stop();
 		// If the answer is correct
-		if(answer.equals(correctAnswer)) {
+		if(answer.equalsIgnoreCase(correctAnswer)) {
 
 			// Increase the score by the prizeMoney
 			score+=prizeMoney;
