@@ -33,6 +33,7 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
    	 // 2. Adjust the frameWidth and frameHeight variables to fit your image nicely (doesn’t need a new line of code)
      // 3. Complete the begin() method in the FortuneTellerRunner class
  	 // 4. add a mouse listener to the frame
+   	 frame.addMouseListener(this);
 
     }
 
@@ -43,26 +44,63 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
    	 int mouseX = e.getX();
    	 int mouseY = e.getY();
    	 // 5. Print the mouseX variable
-
+   	 System.out.println("MouseX: "+mouseX);
    	 // 6. Add the mouseY variable to the previous line so that it prints out too (no new line)
+   	 System.out.print("MouseY: "+mouseY+" ");
    	 // 7. Adjust your secret location co-ordinates here:
-   	 int secretLocationX = 0;
-   	 int secretLocationY = 0;
+   	 int secretLocationX = 260;
+   	 int secretLocationY = 375;
    	 /** If the mouse co-ordinates and secret location are close, we'll let them ask a question. */
    	 if (areClose(mouseX, secretLocationX) && areClose(mouseY, secretLocationY)) {
    		 // 8. Get the user to enter a question for the fortune teller
-
+   		 JOptionPane.showInputDialog("You may now ask a question");
    		 // 9. Find a spooky sound and put it in your default package (freesound.org)
-   		 // AudioClip sound = JApplet.newAudioClip(getClass().getResource("creepy-noise.wav"));
+   		 AudioClip sound = JApplet.newAudioClip(getClass().getResource("creepy-noise.wav"));
    		 // 10. Play the sound
-
+   		 sound.play();
    		 // 11. Use the pause() method below to wait until your music has finished
-
+   		 pause(10);
    		 // 12. Insert your completed Magic 8 ball code here
 
-   	 }
+   			// 2. Make a variable that will hold a random number and put a random number into this variable using "new Random().nextInt(4)"
+   				int r=new Random().nextInt(4);
 
-    }
+   			// 3. Print out this variable
+   				System.out.println(r);
+
+   			// 4. Get the user to enter a question for the 8 ball
+
+   			// 5. If the random number is 0
+   				if (r==0) {
+   					System.out.println("The answer to your question is yes.");
+   				}
+
+   			// -- tell the user "Yes"
+
+   			// 6. If the random number is 1
+   				else if(r==1) {
+   					System.out.println("The answer to your question is no.");
+   				}
+   			// -- tell the user "No"
+
+   			// 7. If the random number is 2
+   				else if(r==2){
+   					System.out.println("Go ask Google. You ain't paying me enough to care.");
+   				}
+
+   			// -- tell the user "Maybe you should ask Google?"
+
+   			// 8. If the random number is 3
+   				else {
+   					System.out.println("DESPACITO IS ALWAYS THE ANSWER");
+   				}
+
+   			// -- write your own answer
+   				
+   			}
+   	 }
+   	 
+
 
     private boolean areClose(int mouseX, int secretLocationX) {
    	 return mouseX < secretLocationX + 15 && mouseX > secretLocationX - 15;
