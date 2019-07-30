@@ -1,16 +1,18 @@
 package _10_pig_latin;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class PigLatinTranslator {
+public class PigLatinTranslator implements ActionListener {
 	
-	static PigLatinTranslator translator = new PigLatinTranslator();
-	static String text1;
-	static String text2;
-	static char text;
+	String text1;
+	String text2;
+	char text;
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	JTextField textfield1 = new JTextField();
@@ -22,6 +24,7 @@ public class PigLatinTranslator {
 		textfield1.setColumns(20);
 		textfield2.setColumns(20);
 		button.setText("TRANSLATE");
+		button.addActionListener(this);
 		panel.add(textfield1);
 		panel.add(button);
 		panel.add(textfield2);
@@ -100,8 +103,14 @@ public class PigLatinTranslator {
 	
 	public static void main(String[] args) {
 		new PigLatinTranslator().createUI();
-		new PigLatinTranslator().convertToString();
-		PigLatinTranslator.isLetter(text);
-		System.out.println(translator.translate(text1));
 		}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		convertToString();
+		PigLatinTranslator.isLetter(text);
+		System.out.println(translate(text1));
+		textfield2.setText(translate(text1));
+	}
 }
