@@ -21,6 +21,8 @@ public class WhackAMole implements ActionListener {
 	int molesWhacked;
 	int timesMissed;
 	JButton moleButton;
+	Date date = new Date();
+
 
 	void createUI() {
 		frame = new JFrame();
@@ -30,7 +32,7 @@ public class WhackAMole implements ActionListener {
 		drawButtons(21);
 		frame.setTitle("Aneurysm Induce-inator");
 		frame.setVisible(true);
-	}
+		}
 
 	void drawButtons(int numberOfButtons) {
 		int num = random.nextInt(numberOfButtons) + 1;
@@ -71,6 +73,22 @@ public class WhackAMole implements ActionListener {
 			}
 		} else if (molesWhacked >= 10) {
 			
+			if(timesMissed == 0) {
+				JOptionPane.showMessageDialog(null, "Flawless victory!");
+			} else if(timesMissed == 1) {
+				JOptionPane.showMessageDialog(null, "Pretty good!");
+			} else if (timesMissed == 2) {
+				JOptionPane.showMessageDialog(null, "Eh, you did alright.");
+			} else if (timesMissed == 3){
+				JOptionPane.showMessageDialog(null, "You got the job done, but you were so bad you almost lost your job as a pest exterminator.");
+			} else if(timesMissed == 4) {
+			JOptionPane.showMessageDialog(null, "You barely finished the job, and you missed so many times you were fired from your job as a pest exterminator.");
+			}
+			endGame(date, molesWhacked);
+			
+		} else if (timesMissed >= 5){
+			JOptionPane.showMessageDialog(null, "You failed the job and now PETA is trying to sue you.");
+			endGame(date, molesWhacked);
 		}
 
 		frame.dispose();
