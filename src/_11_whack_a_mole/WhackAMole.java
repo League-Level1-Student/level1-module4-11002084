@@ -18,8 +18,8 @@ public class WhackAMole implements ActionListener {
 	JFrame frame;
 	Random random = new Random();
 	JPanel panel;
-	int molesWhacked;
-	int timesMissed;
+	int molesWhacked = 0;
+	int timesMissed = 0;
 	JButton moleButton;
 	Date date = new Date();
 
@@ -62,7 +62,7 @@ public class WhackAMole implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (molesWhacked < 10 || timesMissed < 5) {
+		if (molesWhacked < 10 && timesMissed < 5) {
 			if (e.getSource() == moleButton) {
 				playSound("Ding.wav");
 				molesWhacked++;
@@ -71,7 +71,7 @@ public class WhackAMole implements ActionListener {
 				speak("OOF you missed");
 				timesMissed++;
 			}
-		} else if (molesWhacked >= 10) {
+		} else if (molesWhacked == 10) {
 			
 			if(timesMissed == 0) {
 				JOptionPane.showMessageDialog(null, "Flawless victory!");
@@ -86,7 +86,7 @@ public class WhackAMole implements ActionListener {
 			}
 			endGame(date, molesWhacked);
 			
-		} else if (timesMissed >= 5){
+		} else if (timesMissed == 5){
 			JOptionPane.showMessageDialog(null, "You failed the job and now PETA is trying to sue you.");
 			endGame(date, molesWhacked);
 		}
